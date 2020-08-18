@@ -2,6 +2,9 @@ const path = require('path');
 const ejs = require('ejs');
 const { v4: uuidv4 } = require('uuid');
 const express = require('express');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: './config.env' });
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -39,6 +42,6 @@ io.on('connection', (socket) => {
 
 // const app = require('./app.js');
 
-server.listen(3030, () => {
+server.listen(process.env.PORT, () => {
   console.log('Server is running at port: 3030');
 });
