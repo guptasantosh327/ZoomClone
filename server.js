@@ -20,9 +20,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/peerjs', peerServer);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.redirect(`/${uuidv4()}`);
+app.get('/', (req, res, next) => {
+  res.render('base', {
+    roomId: uuidv4(),
+  });
+  next();
 });
+
+// app.get('/joinRoom', (req, res) => {
+//   console.log(res.locals);
+//   // res.redirect(`/${res.locals}`);
+// });
 
 app.get('/:room', (req, res) => {
   res.status(200).render('home', {
