@@ -42,8 +42,11 @@ io.on('connection', (socket) => {
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId);
     socket.to(roomId).broadcast.emit('user-connected', userId);
-    socket.on('message', (message) => {
-      io.to(roomId).emit('createMessage', message);
+    socket.on('message', (message, userId) => {
+      io.to(roomId).emit('createMessage', message, userId);
+    });
+    socket.on('disconnect', () => {
+      socket.to(roomId).broadcast.emit('user-disconnected', userId);
     });
   });
 });
@@ -51,5 +54,5 @@ io.on('connection', (socket) => {
 // const app = require('./app.js');
 
 server.listen(process.env.PORT, () => {
-  console.log('Server is running at port: 3030');
+  console.log(`Server is running at port:${process.env.PORT} `);
 });

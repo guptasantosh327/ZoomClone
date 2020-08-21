@@ -4,8 +4,9 @@ body {
 }
 
 #video-grid {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
+  text-align: center;
 }
 
 video {
